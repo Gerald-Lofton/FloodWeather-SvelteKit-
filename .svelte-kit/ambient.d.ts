@@ -26,6 +26,7 @@
  * ```
  */
 declare module '$env/static/private' {
+	export const OPENWEATHERMAP_API_KEY: string;
 	export const COLORTERM: string;
 	export const TERM: string;
 	export const LSCOLORS: string;
@@ -97,6 +98,7 @@ declare module '$env/static/public' {
  */
 declare module '$env/dynamic/private' {
 	export const env: {
+		OPENWEATHERMAP_API_KEY: string;
 		COLORTERM: string;
 		TERM: string;
 		LSCOLORS: string;

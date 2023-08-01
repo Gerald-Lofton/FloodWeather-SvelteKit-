@@ -1,21 +1,25 @@
 <script>
-  export let data;
+export let data;
 
+// Function to fetch weather data from the server
   async function getWeather() {
-    // Get the city from the input field
-    const city = document.getElementById('city').value;
-
-    // Make a request to the OpenWeatherMap API
-    const apiKey = '42ce900535a7f8ea55e39d21ab42e4ac';
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    const cityInput = document.getElementById('city').value;
 
     try {
-      const response = await fetch(url);
+      // Fetch weather data from the server
+      const response = await fetch('/get-weather', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ city: cityInput }),
+      });
+
       if (!response.ok) {
         throw new Error('Error getting weather data');
       }
-      const weatherData = await response.json();
 
+      const weatherData = await response.json();
       // Convert the temperature to Fahrenheit
       const fahrenheitTemp = Math.round(weatherData.main.temp * 1.8 + 32);
 
@@ -37,8 +41,7 @@
       alert(error.message);
     }
   }
-
-  function getWeatherIcon(weatherCondition) {
+function getWeatherIcon(weatherCondition) {
     switch (weatherCondition) {
       case 'sunny':
         return 'http://openweathermap.org/img/wn/01d@2x.png';
@@ -53,7 +56,6 @@
     }
   }
 </script>
-
 <input type="text" id="city" placeholder="Enter a city" />
 <button on:click={getWeather}>Get Weather</button>
 
@@ -62,9 +64,10 @@
     {@html data}
   </div>
 {:else}
-  <!-- Show a loading message or leave this part empty if you don't want anything to be displayed while loading -->
+  // <!-- Show a loading message or leave this part empty if you don't want anything to be displayed while loading -->
   <p>Loading...</p>
 {/if}
+
 
 <style>
   body {

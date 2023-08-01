@@ -1,7 +1,0 @@
-{
-	"/": [
-		"src/routes/+page.server.js"
-	],
-	"/Flood": [],
-	"/Radar": []
-}
